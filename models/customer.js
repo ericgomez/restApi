@@ -13,12 +13,12 @@ const CustomerSchema = new Schema(
       trim: true
     },
     company: {
-      type: Date,
+      type: String,
       required: true,
       trim: true
     },
     email: {
-      type: Date,
+      type: String,
       required: true,
       unique: true,
       lowercase: true,

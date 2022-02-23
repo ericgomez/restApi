@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const routes = require('./routes')
 const { dbConnect } = require('./config/db')
@@ -7,6 +8,10 @@ const app = express()
 
 // database
 dbConnect()
+
+// enable body-parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/', routes)
 

@@ -1,12 +1,9 @@
 const { Router } = require('express')
+
+const { newCustomer } = require('../controllers/customersController')
+
 const router = Router()
 
-router.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-router.get('/about', (req, res) => {
-  res.send('About page')
-})
+router.post('/customers', newCustomer)
 
 module.exports = router
