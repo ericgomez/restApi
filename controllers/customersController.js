@@ -17,6 +17,19 @@ const newCustomer = async (req, res, next) => {
   }
 }
 
+const getCustomers = async (req, res, next) => {
+  try {
+    const customers = await Customer.find({})
+    res.status(200).json(customers)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 module.exports = {
-  newCustomer
+  newCustomer,
+  getCustomers
 }
