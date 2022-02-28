@@ -42,8 +42,37 @@ const getCustomer = async (req, res, next) => {
   res.status(200).json(customer)
 }
 
+const updateCustomer = async (req, res, next) => {
+  try {
+    const customer = await Customer.findByIdAndUpdate(
+      req.params.idCustomer,
+      req.body, // new values
+      {
+        // options
+        new: true,
+        runValidators: true
+      }
+    )
+
+    if (!customer) {
+      res.status(404).json({
+        message: 'Customer not found'
+      })
+      next()
+    }
+
+    res.status(200).json(customer)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 module.exports = {
   newCustomer,
   getCustomers,
-  getCustomer
+  getCustomer,
+  updateCustomer
 }
