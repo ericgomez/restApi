@@ -1,7 +1,7 @@
 const Customer = require('../models/customer')
 
 const newCustomer = async (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   const customer = new Customer(req.body)
 
   try {
