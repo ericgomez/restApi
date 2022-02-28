@@ -34,4 +34,4 @@ const CustomerSchema = new Schema(
   }
 )
 
-module.exports = model('Event', CustomerSchema)
+module.exports = model('Customer', CustomerSchema)
