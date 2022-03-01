@@ -30,16 +30,23 @@ const getCustomers = async (req, res, next) => {
 }
 
 const getCustomer = async (req, res, next) => {
-  const customer = await Customer.findById(req.params.idCustomer)
+  try {
+    const customer = await Customer.findById(req.params.idCustomer)
 
-  if (!customer) {
-    res.status(404).json({
-      message: 'Customer not found'
+    if (!customer) {
+      res.status(404).json({
+        message: 'Customer not found'
+      })
+      return next()
+    }
+
+    res.status(200).json(customer)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
     })
     next()
   }
-
-  res.status(200).json(customer)
 }
 
 const updateCustomer = async (req, res, next) => {
