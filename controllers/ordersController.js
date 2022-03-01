@@ -53,8 +53,34 @@ const getOrder = async (req, res, next) => {
   }
 }
 
+const updateOrder = async (req, res, next) => {
+  try {
+    const order = await Order.findByIdAndUpdate(req.params.idOrder, req.body, {
+      new: true,
+      runValidators: true
+    })
+      .populate('customer', 'name') // In the first level we only add the name of the model - get only the name of the customer
+      .populate('order.product', 'name') // If it is greater than one level, it is required to indicate nesting separated by dots - get the name of the product
+
+    if (!order) {
+      res.status(404).json({
+        message: 'Order not found'
+      })
+      return next()
+    }
+
+    res.status(200).json(order)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 module.exports = {
   newOrder,
   getOrders,
-  getOrder
+  getOrder,
+  updateOrder
 }
