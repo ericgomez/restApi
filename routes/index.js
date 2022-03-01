@@ -21,7 +21,8 @@ const {
   newOrder,
   getOrders,
   getOrder,
-  updateOrder
+  updateOrder,
+  deleteOrder
 } = require('../controllers/ordersController')
 
 const router = Router()
@@ -43,5 +44,6 @@ router.post('/orders', newOrder)
 router.get('/orders', getOrders)
 router.get('/orders/:idOrder', getOrder)
 router.put('/orders/:idOrder', updateOrder)
+router.delete('/orders/:idOrder', deleteOrder)
 
 module.exports = router
