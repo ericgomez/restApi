@@ -17,6 +17,8 @@ const {
   deleteProduct
 } = require('../controllers/productsController')
 
+const { newOrder } = require('../controllers/ordersController')
+
 const router = Router()
 
 // CRUD
@@ -31,5 +33,7 @@ router.get('/products', getProducts)
 router.get('/products/:idProduct', getProduct)
 router.put('/products/:idProduct', uploadImage, updateProduct)
 router.delete('/products/:idProduct', deleteProduct)
+
+router.post('/orders', newOrder)
 
 module.exports = router
