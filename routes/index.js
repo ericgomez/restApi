@@ -8,7 +8,11 @@ const {
   deleteCustomer
 } = require('../controllers/customersController')
 
-const { uploadImage, newProduct } = require('../controllers/productsController')
+const {
+  uploadImage,
+  newProduct,
+  getProducts
+} = require('../controllers/productsController')
 
 const router = Router()
 
@@ -20,5 +24,6 @@ router.put('/customers/:idCustomer', updateCustomer)
 router.delete('/customers/:idCustomer', deleteCustomer)
 
 router.post('/products', uploadImage, newProduct)
+router.get('/products', getProducts)
 
 module.exports = router
