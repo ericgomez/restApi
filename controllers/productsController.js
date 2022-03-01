@@ -133,10 +133,52 @@ const updateProduct = async (req, res, next) => {
   }
 }
 
+const deleteProduct = async (req, res, next) => {
+  try {
+    // search for the product
+    const product = await Product.findById(req.params.idProduct)
+
+    if (!product) {
+      res.status(404).json({
+        message: 'Product not found'
+      })
+      return next()
+    }
+
+    // check if there is an image
+    if (product.image) {
+      const pathImage = `./uploads/${product.image}`
+
+      // delete the previous image asynchronously
+      // no required await because it is not a blocking operation
+      fs.unlink(pathImage, error => {
+        if (error) {
+          console.log(error)
+        }
+
+        return
+      })
+    }
+
+    // delete the product
+    await product.remove()
+
+    res.status(200).json({
+      message: 'Product deleted successfully'
+    })
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 module.exports = {
   uploadImage,
   newProduct,
   getProducts,
   getProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }
