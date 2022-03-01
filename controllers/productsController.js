@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const Product = require('../models/product')
 const multer = require('../middlewares/fileUpload')
 
@@ -83,9 +85,58 @@ const getProduct = async (req, res, next) => {
   }
 }
 
+const updateProduct = async (req, res, next) => {
+  try {
+    // search for the product
+    const product = await Product.findById(req.params.idProduct)
+
+    if (!product) {
+      res.status(404).json({
+        message: 'Product not found'
+      })
+      return next()
+    }
+
+    // check if there is an image
+    if (req.file && product.image) {
+      const pathImage = `./uploads/${product.image}`
+
+      // delete the previous image asynchronously
+      // no required await because it is not a blocking operation
+      fs.unlink(pathImage, error => {
+        if (error) {
+          console.log(error)
+        }
+
+        return
+      })
+    }
+
+    // add only name of image if exists
+    if (req.file) {
+      product.image = req.file.filename
+    }
+
+    // update the product
+    product.name = req.body.name
+    product.price = req.body.price
+
+    // update the product with the new data
+    await product.save()
+
+    res.status(200).json(product)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 module.exports = {
   uploadImage,
   newProduct,
   getProducts,
-  getProduct
+  getProduct,
+  updateProduct
 }
