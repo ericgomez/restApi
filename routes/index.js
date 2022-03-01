@@ -17,7 +17,11 @@ const {
   deleteProduct
 } = require('../controllers/productsController')
 
-const { newOrder, getOrders } = require('../controllers/ordersController')
+const {
+  newOrder,
+  getOrders,
+  getOrder
+} = require('../controllers/ordersController')
 
 const router = Router()
 
@@ -36,5 +40,6 @@ router.delete('/products/:idProduct', deleteProduct)
 
 router.post('/orders', newOrder)
 router.get('/orders', getOrders)
+router.get('/orders/:idOrder', getOrder)
 
 module.exports = router
