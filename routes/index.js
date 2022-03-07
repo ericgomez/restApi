@@ -51,7 +51,7 @@ router.put('/orders/:idOrder', updateOrder)
 router.delete('/orders/:idOrder', deleteOrder)
 
 // signup
-router.post('/signup', signup)
-router.post('/login', login)
+router.post('/auth/signup', signup)
+router.post('/auth/login', login)
 
 module.exports = router
