@@ -65,6 +65,23 @@ const getProducts = async (req, res, next) => {
   }
 }
 
+const searchProduct = async (req, res, next) => {
+  try {
+    const { query } = req.params
+
+    const products = await Product.find({
+      name: new RegExp(query, 'i')
+    })
+
+    res.status(200).json(products)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    })
+    next()
+  }
+}
+
 const getProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.idProduct)
@@ -178,6 +195,7 @@ module.exports = {
   uploadImage,
   newProduct,
   getProducts,
+  searchProduct,
   getProduct,
   updateProduct,
   deleteProduct

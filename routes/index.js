@@ -12,6 +12,7 @@ const {
   uploadImage,
   newProduct,
   getProducts,
+  searchProduct,
   getProduct,
   updateProduct,
   deleteProduct
@@ -36,6 +37,7 @@ router.delete('/customers/:idCustomer', deleteCustomer)
 
 router.post('/products', uploadImage, newProduct)
 router.get('/products', getProducts)
+router.post('/products/search/:query', searchProduct)
 router.get('/products/:idProduct', getProduct)
 router.put('/products/:idProduct', uploadImage, updateProduct)
 router.delete('/products/:idProduct', deleteProduct)
