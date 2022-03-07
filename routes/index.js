@@ -26,6 +26,8 @@ const {
   deleteOrder
 } = require('../controllers/ordersController')
 
+const { signup, login } = require('../controllers/usersController')
+
 const router = Router()
 
 // CRUD
@@ -47,5 +49,9 @@ router.get('/orders', getOrders)
 router.get('/orders/:idOrder', getOrder)
 router.put('/orders/:idOrder', updateOrder)
 router.delete('/orders/:idOrder', deleteOrder)
+
+// signup
+router.post('/signup', signup)
+router.post('/login', login)
 
 module.exports = router
