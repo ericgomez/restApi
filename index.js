@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const routes = require('./routes')
 const { dbConnect } = require('./config/db')
+const corsOptions = require('./config/cors')
 
 const app = express()
 
@@ -15,7 +16,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // enable cors
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/', routes)
 
