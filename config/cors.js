@@ -1,4 +1,4 @@
-const allowlist = ['http://localhost:3000']
+const allowlist = [process.env.DEV_URL]
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowlist.indexOf(origin) !== -1) {
